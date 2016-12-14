@@ -9,22 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var Observable_1 = require("rxjs/Observable");
-require("rxjs/add/observable/interval");
-require("rxjs/add/observable/merge");
-require("rxjs/add/operator/map");
-var Subject_1 = require("rxjs/Subject");
 var AppComponent = (function () {
     function AppComponent() {
-        this.click$ = new Subject_1.Subject();
-        this.clock = Observable_1.Observable.merge(this.click$, Observable_1.Observable.interval(5000)).map(function () { return new Date(); });
+        this.name = 'Hello';
     }
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'pm-app',
-        template: "\n        <button (click)=\"click$.next()\" >Update</button>\n        <h1>{{ clock | async | date:'y MMMM EEEE dd j mm ss' }}</h1>\n    "
+        template: "\n        <h1>{{ name }}</h1>\n    "
     }),
     __metadata("design:paramtypes", [])
 ], AppComponent);
