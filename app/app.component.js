@@ -8,19 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var core_1 = require("@angular/core");
+var mail_service_1 = require("./services/mail.service");
 var AppComponent = (function () {
-    function AppComponent() {
-        this.name = 'Hello';
+    function AppComponent(mail, api) {
+        this.mail = mail;
+        this.api = api;
     }
+    AppComponent.prototype.onUpdate = function (id, text) {
+        this.mail.update(id, text);
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'pm-app',
-        template: "\n        <h1>{{ name }}</h1>\n    "
+        template: "\n        <div>\n            {{ api }}\n            <hr>\n\n            <ul>\n                <li *ngFor=\"let message of mail.messages\">\n                    {{ message.text }}\n                </li>\n            </ul>\n\n            <simple-form \n                *ngFor=\"let message of mail.messages\"\n                [message]=\"message.text\"\n                (myUpdate)=\"onUpdate(message.id, $event.text)\"\n                >\n            </simple-form>\n        </div>\n    "
     }),
-    __metadata("design:paramtypes", [])
+    __param(1, core_1.Inject('api')),
+    __metadata("design:paramtypes", [mail_service_1.MailService, Object])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
