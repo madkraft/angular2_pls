@@ -5,3 +5,8 @@ li {
 div.panel-heading {
    font-size: x-large; 
 }
+
+body {
+    margin: 50px auto;
+    max-width: 400px;
+}

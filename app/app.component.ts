@@ -1,38 +1,28 @@
-import { Component, Inject } from '@angular/core';
-import { MailService } from './services/mail.service';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'pm-app',
     template: `
-        <div>
-            {{ api }}
-            <hr>
-
-            <ul>
-                <li *ngFor="let message of mail.messages">
-                    {{ message.text }}
-                </li>
-            </ul>
-
-            <simple-form 
-                *ngFor="let message of mail.messages"
-                [message]="message.text"
-                (myUpdate)="onUpdate(message.id, $event.text)"
-                >
-            </simple-form>
-        </div>
+        <rooms-select 
+            *ngFor="let room of rooms; let i = index;" 
+            [index]="i+1"
+            (removeRoom)="onRemoveRoom(room.id)">
+        </rooms-select>
+        <button (click)="onAddRoom()">Add room</button>
     `
 })
 
 export class AppComponent {
-    constructor (
-        private mail: MailService,
-        @Inject('api') private api
-    ) {
+    // create unique id
+    rooms: Array<any> = [
+        {id: 0}
+    ];
 
+    onAddRoom () {
+        this.rooms = [...this.rooms, {id: this.rooms.length, adults: 1, children: 0}];
     }
 
-    onUpdate (id, text) {
-        this.mail.update(id, text);
+    onRemoveRoom (id: number) {
+        this.rooms = this.rooms.filter(room => room.id !== id)
     }
 }

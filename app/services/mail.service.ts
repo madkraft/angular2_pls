@@ -10,7 +10,7 @@ export class MailService {
 
   constructor() {}
 
-  update (id, text) {
+  update (id: number, text: string) {
     this.messages = this.messages.map(message => {
       if (message.id === id) {
         return {id, text};

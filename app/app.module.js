@@ -12,8 +12,9 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var app_component_1 = require("./app.component");
-var simple_form_component_1 = require("./components/simple-form.component");
-var mail_service_1 = require("./services/mail.service");
+var rooms_select_component_1 = require("./components/rooms-select/rooms-select.component");
+var children_component_1 = require("./components/children/children.component");
+var counter_component_1 = require("./components/counter/counter.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -22,11 +23,12 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, forms_1.FormsModule],
-        providers: [
-            mail_service_1.MailService,
-            { provide: 'api', useValue: 'http://localhost:3000/' }
+        declarations: [
+            app_component_1.AppComponent,
+            rooms_select_component_1.RoomsSelectComponent,
+            children_component_1.ChildrenComponent,
+            counter_component_1.CounterComponent
         ],
-        declarations: [app_component_1.AppComponent, simple_form_component_1.SimpleFormComponent],
         bootstrap: [app_component_1.AppComponent]
     }),
     __metadata("design:paramtypes", [])

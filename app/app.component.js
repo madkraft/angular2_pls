@@ -8,28 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var core_1 = require("@angular/core");
-var mail_service_1 = require("./services/mail.service");
 var AppComponent = (function () {
-    function AppComponent(mail, api) {
-        this.mail = mail;
-        this.api = api;
+    function AppComponent() {
+        // create unique id
+        this.rooms = [
+            { id: 0 }
+        ];
     }
-    AppComponent.prototype.onUpdate = function (id, text) {
-        this.mail.update(id, text);
+    AppComponent.prototype.onAddRoom = function () {
+        this.rooms = this.rooms.concat([{ id: this.rooms.length, adults: 1, children: 0 }]);
+    };
+    AppComponent.prototype.onRemoveRoom = function (id) {
+        this.rooms = this.rooms.filter(function (room) { return room.id !== id; });
     };
     return AppComponent;
 }());
 AppComponent = __decorate([
     core_1.Component({
         selector: 'pm-app',
-        template: "\n        <div>\n            {{ api }}\n            <hr>\n\n            <ul>\n                <li *ngFor=\"let message of mail.messages\">\n                    {{ message.text }}\n                </li>\n            </ul>\n\n            <simple-form \n                *ngFor=\"let message of mail.messages\"\n                [message]=\"message.text\"\n                (myUpdate)=\"onUpdate(message.id, $event.text)\"\n                >\n            </simple-form>\n        </div>\n    "
+        template: "\n        <rooms-select \n            *ngFor=\"let room of rooms; let i = index;\" \n            [index]=\"i+1\"\n            (removeRoom)=\"onRemoveRoom(room.id)\">\n        </rooms-select>\n        <button (click)=\"onAddRoom()\">Add room</button>\n    "
     }),
-    __param(1, core_1.Inject('api')),
-    __metadata("design:paramtypes", [mail_service_1.MailService, Object])
+    __metadata("design:paramtypes", [])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map
